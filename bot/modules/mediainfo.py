@@ -9,15 +9,20 @@ from os import path as ospath, getcwd
 from pyrogram.handlers import MessageHandler 
 from pyrogram.filters import command
 
+from bot.helper.nordbotz_utils.r_act import send_react
 from bot import LOGGER, bot, config_dict
 from bot.helper.telegram_helper.filters import CustomFilters
 from bot.helper.telegram_helper.bot_commands import BotCommands
 from bot.helper.telegram_helper.message_utils import editMessage, sendMessage
 from bot.helper.ext_utils.bot_utils import cmd_exec
 from bot.helper.ext_utils.telegraph_helper import telegraph
-
+import asyncio
 
 async def gen_mediainfo(message, link=None, media=None, mmsg=None):
+    sticker_message = await message.reply_sticker("CAACAgIAAxkBAAEti6Fm2p_EPf8zmFOlwGIE-datMNGTtwACdxgAAqPjKEmMVSFmXGLogTYE")
+    await asyncio.sleep(1)
+    await sticker_message.delete()
+    await send_react(message)
     temp_send = await sendMessage(message, '<i>Generating MediaInfo...</i>')
     try:
         path = "Mediainfo/"

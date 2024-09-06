@@ -14,6 +14,7 @@ from io import BytesIO
 from asyncio import sleep
 from cryptography.fernet import Fernet
 import asyncio
+from bot.helper.nordbotz_utils.r_act import send_react
 from bot import OWNER_ID, LOGGER, bot, user_data, config_dict, categories_dict, DATABASE_URL, IS_PREMIUM_USER, MAX_SPLIT_SIZE
 from bot.helper.telegram_helper.message_utils import sendMessage, sendCustomMsg, editMessage, deleteMessage, sendFile, chat_info, user_info
 from bot.helper.telegram_helper.filters import CustomFilters
@@ -273,6 +274,7 @@ async def update_user_settings(query, key=None, edit_type=None, edit_mode=None, 
 
 
 async def user_settings(client, message):        
+    await send_react(message)
     if len(message.command) > 1 and (message.command[1] == '-s' or message.command[1] == '-set'):
         set_arg = message.command[2].strip() if len(message.command) > 2 else None
         msg = await sendMessage(message, '<i>Fᴇᴛᴄʜɪɴɢ Sᴇᴛᴛɪɴɢs...</i>', photo='IMAGES')

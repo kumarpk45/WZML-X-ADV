@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python3
 from random import choice
 from time import time
@@ -13,6 +12,7 @@ from html import escape
 from aioshutil import move
 from asyncio import create_subprocess_exec, sleep, Event
 from pyrogram.enums import ChatType
+import asyncio
 
 from bot import OWNER_ID, Interval, aria2, DOWNLOAD_DIR, download_dict, download_dict_lock, LOGGER, bot_name, DATABASE_URL, \
     MAX_SPLIT_SIZE, config_dict, status_reply_dict_lock, user_data, non_queued_up, non_queued_dl, queued_up, \
@@ -385,7 +385,7 @@ class MirrorLeechListener:
                 event = Event()
                 queued_up[self.uid] = event
         if added_to_queue:
-           async with download_dict_lock:
+            async with download_dict_lock:
                 download_dict[self.uid] = QueueStatus(
                     name, size, gid, self, 'Up')
             await event.wait()
@@ -650,6 +650,10 @@ class MirrorLeechListener:
         if self.isSuperGroup and config_dict['INCOMPLETE_TASK_NOTIFIER'] and DATABASE_URL:
             await DbManger().rm_complete_task(self.message.link)
 
+        sticker_message = await self.message.reply_sticker("CAACAgUAAxkBAAEti6dm2p_wSQb-yEbP2UizqT_N1i0V8gACkwUAAjgC8Fe63ZbCQ-j_3TYE")
+        await asyncio.sleep(60)
+        await sticker_message.delete()
+
         async with queue_dict_lock:
             if self.uid in queued_dl:
                 queued_dl[self.uid].set()
@@ -688,6 +692,10 @@ class MirrorLeechListener:
         if self.isSuperGroup and config_dict['INCOMPLETE_TASK_NOTIFIER'] and DATABASE_URL:
             await DbManger().rm_complete_task(self.message.link)
 
+        sticker_message = await self.message.reply_sticker("CAACAgUAAxkBAAEti6dm2p_wSQb-yEbP2UizqT_N1i0V8gACkwUAAjgC8Fe63ZbCQ-j_3TYE")
+        await asyncio.sleep(60)
+        await sticker_message.delete()
+        
         async with queue_dict_lock:
             if self.uid in queued_dl:
                 queued_dl[self.uid].set()
@@ -705,3 +713,6 @@ class MirrorLeechListener:
         await clean_download(self.dir)
         if self.newDir:
             await clean_download(self.newDir)
+        sticker_message = await self.message.reply_sticker("CAACAgIAAxkBAAEti59m2p-lZQdbcPCGLWZuYskX-2Wx5gACShIAAidQAUqpgnF_W9HvnDYE")
+        await asyncio.sleep(60)
+        await sticker_message.delete()

@@ -7,6 +7,7 @@ from aiofiles.os import path as aiopath
 from cloudscraper import create_scraper as cget
 from json import loads, dumps as jdumps
 
+from bot.helper.nordbotz_utils.r_act import send_react
 from bot import LOGGER, download_dict, download_dict_lock, categories_dict, config_dict, bot
 from bot.helper.ext_utils.task_manager import limit_checker, task_utils
 from bot.helper.mirror_utils.upload_utils.gdriveTools import GoogleDriveHelper
@@ -24,7 +25,7 @@ from bot.helper.ext_utils.help_messages import CLONE_HELP_MESSAGE
 from bot.helper.mirror_utils.status_utils.rclone_status import RcloneStatus
 from bot.helper.listeners.tasks_listener import MirrorLeechListener
 from bot.helper.themes import BotTheme
-
+import asyncio
 
 async def rcloneNode(client, message, link, dst_path, rcf, tag):
     if link == 'rcl':
@@ -179,6 +180,10 @@ async def gdcloneNode(message, link, listen_up):
 
 @new_task
 async def clone(client, message):
+    sticker_message = await message.reply_sticker(CAACAgIAAxkBAAEti6Nm2p_aPrDtn7A-h9YK5Vr3qZjvOAACbxEAAuskAAFKq1DyNMfuKTc2BA")
+    await asyncio.sleep(1)
+    await sticker_message.delete()
+    await send_react(message)
     input_list = message.text.split(' ')
 
     arg_base = {'link': '', 

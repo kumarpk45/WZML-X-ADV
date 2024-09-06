@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
-from os import walk, path as ospath
 from aiofiles.os import remove as aioremove, path as aiopath, listdir, rmdir, makedirs
-from aioshutil import rmtree as aiormtree
-from shutil import rmtree, disk_usage
+from aioshutil import rmtree as aiormtree, move
+from asyncio import create_subprocess_exec
+from asyncio.subprocess import PIPE
 from magic import Magic
+from os import walk, path as ospath
 from re import split as re_split, I, search as re_search
+from shutil import rmtree, disk_usage
 from subprocess import run as srun
 from sys import exit as sexit
 
@@ -180,8 +182,8 @@ async def join_files(path):
 # ===================================================================================================================================================================================================================================================================================================================================================================
 
 async def edit_metadata(listener, base_dir: str, media_file: str, outfile: str, metadata: str = ''):
-    cmd = [bot_cache['pkgs'][2], '-hide_banner', '-ignore_unknown', '-i', media_file, '-metadata', f'title={metadata}',
-           '-metadata:s:v', f'title={metadata}', '-metadata', f'Comment= ', '-metadata', f'Copyright= ', '-metadata', f'AUTHOR=𝐉𝐨𝐭 𝐒𝐢𝐝𝐡𝐮', '-metadata', f'Encoded by= ', '-metadata', f'Encoded_by= ', '-metadata', f'Description= ', '-metadata', f'description= ', '-metadata', f'SUMMARY= ', '-metadata', f'WEBSITE= ', '-metadata:s:a', f'title={metadata}',
+    cmd = [bot_cache['pkgs'][2], '-hide_banner', '-loglevel', 'error', '-ignore_unknown', '-i', media_file, '-metadata', f'title={metadata}',
+           '-metadata:s:v', f'title={metadata}', '-metadata', 'Comment=', '-metadata', 'Copyright=', '-metadata', f'AUTHOR=𝐉𝐨𝐭 𝐒𝐢𝐝𝐡𝐮', '-metadata', 'Encoded by=', '-metadata', 'SYNOPSIS=', '-metadata', 'ARTIST=', '-metadata', 'PURL=', '-metadata', 'Encoded_by=', '-metadata', 'Description=', '-metadata', 'description=', '-metadata', 'SUMMARY=', '-metadata', 'WEBSITE=', '-metadata:s:a', f'title={metadata}',
            '-metadata:s:s', f'title={metadata}', '-map', '0:v:0?', '-map', '0:a:?', '-map', '0:s:?', '-c:v', 'copy', '-c:a', 'copy', '-c:s',
            'copy', outfile, '-y']
     listener.suproc = await create_subprocess_exec(*cmd, stderr=PIPE)
@@ -193,3 +195,4 @@ async def edit_metadata(listener, base_dir: str, media_file: str, outfile: str, 
     else:
         await clean_target(outfile)
         LOGGER.error('%s. Changing metadata failed, Path %s', (await listener.suproc.stderr.read()).decode(), media_file)
+      

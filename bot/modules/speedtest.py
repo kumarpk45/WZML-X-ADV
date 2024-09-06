@@ -3,6 +3,7 @@ from speedtest import Speedtest, ConfigRetrievalError
 from pyrogram.handlers import MessageHandler
 from pyrogram.filters import command
 
+from bot.helper.nordbotz_utils.r_act import send_react
 from bot import bot, LOGGER
 from bot.helper.telegram_helper.filters import CustomFilters
 from bot.helper.telegram_helper.bot_commands import BotCommands
@@ -11,6 +12,7 @@ from bot.helper.ext_utils.bot_utils import get_readable_file_size, new_task
 
 @new_task
 async def speedtest(_, message):
+    await send_react(message)
     speed = await sendMessage(message, "<i>Initiating Speedtest...</i>")
     try:
         test = Speedtest()

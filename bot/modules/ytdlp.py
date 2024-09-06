@@ -8,6 +8,7 @@ from yt_dlp import YoutubeDL
 from functools import partial
 from time import time
 
+from bot.helper.nordbotz_utils.r_act import send_react
 from bot import DOWNLOAD_DIR, bot, categories_dict, config_dict, user_data, LOGGER
 from bot.helper.ext_utils.task_manager import task_utils
 from bot.helper.telegram_helper.message_utils import sendMessage, editMessage, deleteMessage, auto_delete_message, delete_links, open_category_btns, open_dump_btns
@@ -241,6 +242,7 @@ async def _mdisk(link, name):
 
 @new_task
 async def _ytdl(client, message, isLeech=False, sameDir=None, bulk=[]):
+    await send_react(message)
     text = message.text.split('\n')
     input_list = text[0].split(' ')
     qual = ''

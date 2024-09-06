@@ -53,7 +53,7 @@ class MirrorStatus:
     STATUS_ARCHIVING   = "Aʀᴄʜɪᴠᴇ"
     STATUS_EXTRACTING  = "Exᴛʀᴀᴄᴛ"
     STATUS_SPLITTING   = "Sᴘʟɪᴛ"
-    STATUS_METADATA    = "Aᴅᴅɪɴɢ Mᴇᴛᴀᴅᴀᴛᴀ Pᴏᴡᴅᴇʀᴇᴅ Bʏ @Nᴏʀᴅ Bᴏᴛᴢ"
+    STATUS_METADATA    = "Aᴅᴅɪɴɢ Mᴇᴛᴀᴅᴀᴛᴀ"
     STATUS_CHECKING    = "CʜᴇᴄᴋUᴘ"
     STATUS_SEEDING     = "Sᴇᴇᴅq"
 

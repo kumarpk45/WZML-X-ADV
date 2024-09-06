@@ -5,6 +5,7 @@ from aiohttp import ClientSession
 from html import escape
 from urllib.parse import quote
 
+from bot.helper.nordbotz_utils.r_act import send_react
 from bot import bot, LOGGER, config_dict, get_client
 from bot.helper.telegram_helper.message_utils import editMessage, sendMessage
 from bot.helper.ext_utils.telegraph_helper import telegraph
@@ -210,6 +211,7 @@ async def __plugin_buttons(user_id):
 
 
 async def torrentSearch(_, message):
+    await send_react(message)
     user_id = message.from_user.id
     buttons = ButtonMaker()
     key = message.text.split() if message.text else ['/cmd']
