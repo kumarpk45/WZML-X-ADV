@@ -385,7 +385,7 @@ class MirrorLeechListener:
                 event = Event()
                 queued_up[self.uid] = event
         if added_to_queue:
-        async with download_dict_lock:
+            async with download_dict_lock:
                 download_dict[self.uid] = QueueStatus(
                     name, size, gid, self, 'Up')
             await event.wait()
@@ -625,7 +625,9 @@ class MirrorLeechListener:
 
         await start_from_queued()
         await delete_links(self.message)
-
+        sticker_message = await self.message.reply_sticker("CAACAgIAAxkBAAEtG11mucTu1yOejNJ0jy7-GOx9we_s7AAC5w0AAkwAAalLKPSbhF1cTYk1BA")
+        await asyncio.sleep(99)
+        await sticker_message.delete()
 
     async def onDownloadError(self, error, button=None):
         async with download_dict_lock:
@@ -667,6 +669,9 @@ class MirrorLeechListener:
         await clean_download(self.dir)
         if self.newDir:
             await clean_download(self.newDir)
+        sticker_message = await self.message.reply_sticker("CAACAgIAAxkBAAEtHV5mui-c8pAUnNQ4tcEPiR_iau7XdwACKA0AAiDCyEgVplZsx9KxyDUE")
+        await asyncio.sleep(99)
+        await sticker_message.delete()
 
     async def onUploadError(self, error):
         async with download_dict_lock:
@@ -705,3 +710,6 @@ class MirrorLeechListener:
         await clean_download(self.dir)
         if self.newDir:
             await clean_download(self.newDir)
+        sticker_message = await self.message.reply_sticker("CAACAgIAAxkBAAEtHV5mui-c8pAUnNQ4tcEPiR_iau7XdwACKA0AAiDCyEgVplZsx9KxyDUE")
+        await asyncio.sleep(99)
+        await sticker_message.delete()
