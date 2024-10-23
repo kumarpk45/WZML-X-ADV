@@ -385,7 +385,7 @@ class MirrorLeechListener:
                 event = Event()
                 queued_up[self.uid] = event
         if added_to_queue:
-           async with download_dict_lock:
+        async with download_dict_lock:
                 download_dict[self.uid] = QueueStatus(
                     name, size, gid, self, 'Up')
             await event.wait()
