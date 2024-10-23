@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
+import os
 from os import walk, path as ospath
 from aiofiles.os import remove as aioremove, path as aiopath, listdir, rmdir, makedirs
 from aioshutil import rmtree as aiormtree
+from asyncio.subprocess import PIPE
 from shutil import rmtree, disk_usage
 from magic import Magic
 from re import split as re_split, I, search as re_search
